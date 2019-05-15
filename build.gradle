@@ -12,6 +12,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'eclipse'
 
 //Required JDK version
 sourceCompatibility = 1.8

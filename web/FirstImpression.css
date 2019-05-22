@@ -1,0 +1,73 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    background-color: darkred;
+}
+
+.content {
+    position: absolute;
+    top: 10%;
+    height: 90%;
+    width: 100%;
+    background-color: green;
+}
+
+.pane-left {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: yellow;
+    width: 20%;
+}
+
+.main-content {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 60%;
+    height: 100%;
+    background-color: aqua;
+    background-image: url("logo-tamagotchi.png");
+    background-repeat: no-repeat;
+    background-size: unset;
+}
+
+.pane-right {
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 20%;
+    height: 100%;
+    background-color: magenta;
+}
+
+#banner {
+    height: 100%;
+    width: 100%;
+}
+
+.student {
+    position: relative;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 70%;
+    background-color: blueviolet;
+}
+
+.buttons {
+    position: absolute;
+    top: 80%;
+    left: 5%;
+    height: 10%;
+    width: 90%;
+    background-color: aliceblue;
+}

@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="header">
-    <img id="banner" src="logo-tamagotchi.png" alt="Hier sollte ein Banner stehen!"/>
+    <img id="banner" src="logo-tamagotchi.png" alt="Hier sollte ein Banner stehen!" draggable="false"/>
 </div>
 <div class="content">
     <div class="pane-left">
@@ -15,18 +15,33 @@
     </div>
     <div class="main-content">
         <div class="student">
-            Hier wird der Student agieren!
+            <img src="programming.gif" alt="Der Student? Kp" style="width: 100%; height: 100%;" draggable="false">
         </div>
         <div class="buttons">
-            <button class="button-action button-eat" onclick="alert('button-eat')">
-                Essen
-            </button>
-            <button class="button-action button-learn" onclick="alert('button-learn')">
-                Lernen
-            </button>
-            <button class="button-action button-sleep" onclick="alert('button-sleep')">
-                Schlafen
-            </button>
+            <table class="button-table">
+                <tbody>
+                <tr class="button-row">
+                    <td>
+                        <button class="button-action button-eat" onclick="alert('button-eat')">
+                            <img src="hamburger.jpg" alt="Essen" class="button-icon"draggable="false"/>
+                            <br/>Essen
+                        </button>
+                    </td>
+                    <td>
+                        <button class="button-action button-learn" onclick="alert('button-learn')">
+                            <img src="book.png" alt="Essen" class="button-icon"draggable="false"/>
+                            <br/>Lernen
+                        </button>
+                    </td>
+                    <td>
+                        <button class="button-action button-sleep" onclick="alert('button-sleep')">
+                            <img src="bed.png" alt="Essen" class="button-icon"draggable="false"/>
+                            <br/>Schlafen
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="pane-right">

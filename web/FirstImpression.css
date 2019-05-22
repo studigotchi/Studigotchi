@@ -35,7 +35,9 @@ body {
     width: 60%;
     height: 100%;
     background-color: aqua;
+    /*
     background-image: url("logo-tamagotchi.png");
+    */
     background-repeat: no-repeat;
     background-size: unset;
 }
@@ -69,5 +71,30 @@ body {
     left: 5%;
     height: 10%;
     width: 90%;
-    background-color: aliceblue;
+    background-color: darkolivegreen;
+    overflow: hidden;
+}
+
+.button-action {
+    width: 80%;
+    margin: auto;
+    height: auto;
+}
+
+.button-icon {
+    position: relative;
+    max-width: 10%;
+    height: auto;
+}
+
+.button-table {
+    height: 100%;
+}
+
+table td {
+    border: 1px solid red;
+    width: 33.333%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
 }

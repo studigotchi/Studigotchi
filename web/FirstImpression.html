@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Studigotchi</title>
     <link rel="stylesheet" href="FirstImpression.css">
+    <script rel="script" src="FirstImpression.js"></script>
 </head>
 <body>
 <div class="header">
@@ -22,20 +23,20 @@
                 <tbody>
                 <tr class="button-row">
                     <td>
-                        <button class="button-action button-eat" onclick="alert('button-eat')">
-                            <img src="hamburger.jpg" alt="Essen" class="button-icon"draggable="false"/>
+                        <button class="button-action button-eat" onclick="clickEat()">
+                            <img src="hamburger.jpg" alt="Essen" class="button-icon" draggable="false"/>
                             <br/>Essen
                         </button>
                     </td>
                     <td>
-                        <button class="button-action button-learn" onclick="alert('button-learn')">
-                            <img src="book.png" alt="Essen" class="button-icon"draggable="false"/>
+                        <button class="button-action button-learn" onclick="clickLearn()">
+                            <img src="book.png" alt="Lernen" class="button-icon" draggable="false"/>
                             <br/>Lernen
                         </button>
                     </td>
                     <td>
-                        <button class="button-action button-sleep" onclick="alert('button-sleep')">
-                            <img src="bed.png" alt="Essen" class="button-icon"draggable="false"/>
+                        <button class="button-action button-sleep" onclick="clickSleep()">
+                            <img src="bed.png" alt="Schlafen" class="button-icon" draggable="false"/>
                             <br/>Schlafen
                         </button>
                     </td>
@@ -46,6 +47,7 @@
     </div>
     <div class="pane-right">
         Right Pane
+        <a onclick="clickSleep()" href="#">Hello</a>
     </div>
 </div>
 </body>

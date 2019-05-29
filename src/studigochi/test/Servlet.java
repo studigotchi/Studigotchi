@@ -14,12 +14,10 @@ import java.sql.SQLException;
 
 @WebServlet(name = "Main", value = "/main")
 public class Servlet extends HttpServlet {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 3592564208917652241L;
 
-	@Override
+    private static final long serialVersionUID = 3592564208917652241L;
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             final Connection connection = DBServletContextListener.getConnection();

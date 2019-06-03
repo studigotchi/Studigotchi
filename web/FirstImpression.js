@@ -1,23 +1,46 @@
 function clickEat() {
-    //alert("Eating!!");
-
     let request = new XMLHttpRequest();
 
-    request.onreadystatechange = function() {
-        if(request.readyState === request.DONE) {
+    request.onreadystatechange = function () {
+        if (request.readyState === request.DONE) {
             let parse = JSON.parse(request.responseText);
             alert(parse.name);
         }
     };
 
-    request.open("GET", "./user");
+    request.open("GET", "./user/eat");
     request.send();
 }
 
 function clickLearn() {
-    alert("Learning!!");
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === request.DONE) {
+            let responseObject = JSON.parse(request.responseText);
+            alert(responseObject.name);
+        }
+    };
+
+    request.open("GET", "./user/learn");
+    request.send();
 }
 
 function clickSleep() {
-    alert("Sleeping");
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === request.DONE) {
+            let responseObject = JSON.parse(request.responseText);
+            alert(responseObject.name);
+        }
+    };
+
+    request.open("GET", "./user/sleep");
+    request.send();
+}
+
+function handleResult(request) {
+    if (request.readyState === request.DONE) {
+        let responseObject = JSON.parse(request.responseText);
+        alert(responseObject.name);
+    }
 }

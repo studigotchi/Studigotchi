@@ -1,46 +1,35 @@
+window.onload = function () {
+    window.setInterval(function () {
+        //TODO query ./data for status updates
+        sendRequest("data");
+    }, 1000);
+};
+
+
 function clickEat() {
-    let request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.readyState === request.DONE) {
-            let parse = JSON.parse(request.responseText);
-            alert(parse.name);
-        }
-    };
-
-    request.open("GET", "./user/eat");
-    request.send();
+    sendRequest("eat");
 }
 
 function clickLearn() {
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (request.readyState === request.DONE) {
-            let responseObject = JSON.parse(request.responseText);
-            alert(responseObject.name);
-        }
-    };
-
-    request.open("GET", "./user/learn");
-    request.send();
+    sendRequest("learn");
 }
 
 function clickSleep() {
+    sendRequest("sleep");
+}
+
+function sendRequest(urlEnd) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === request.DONE) {
             let responseObject = JSON.parse(request.responseText);
-            alert(responseObject.name);
+            jQuery("#life_id").text(responseObject.hearts || "NO LIFE MAN");
+            jQuery("#progress_id").text(responseObject.stars || "YOU'RE TOO BAD");
+            jQuery("#semester_id").text(responseObject.semester || "NOT ENROLLED");
+            jQuery("#time_id").text(responseObject.time || "OVERDUE");
         }
     };
 
-    request.open("GET", "./user/sleep");
+    request.open("GET", "./user/" + urlEnd);
     request.send();
-}
-
-function handleResult(request) {
-    if (request.readyState === request.DONE) {
-        let responseObject = JSON.parse(request.responseText);
-        alert(responseObject.name);
-    }
 }

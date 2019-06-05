@@ -22,14 +22,19 @@ public class Student {
         timer = new Timer();
         timer.schedule(new TimerTask() {
 
-                @Override
-                public void run() {
+            @Override
+            public void run() {
 
-                    doSomething();
-                }
-            }, 10, 1000);
+                doSomething();
+            }
+        }, 10, 1000);
         status = Status.JUST_BE;
         globalTimer = 0L;
+    }
+
+    public double getHealth() {
+
+        return user.getHealth();
     }
 
     public void setHealth(double health) {
@@ -37,24 +42,15 @@ public class Student {
         user.setHealth(health);
     }
 
-
-    public void setSuccess(double success) {
-
-        user.setSuccess(success);
-    }
-
-
-    public double getHealth() {
-
-        return user.getHealth();
-    }
-
-
     public double getSuccess() {
 
         return user.getSuccess();
     }
 
+    public void setSuccess(double success) {
+
+        user.setSuccess(success);
+    }
 
     private void doSomething() {
 
@@ -107,5 +103,20 @@ public class Student {
     public void just_be() {
 
         addHealth(-0.2);
+    }
+
+    public String toJSONString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"name\": \"").append(this.user.getUserName()).append("\",");
+        sb.append("\"status\": \"").append(this.status).append("\",");
+        sb.append("\"time\": ").append(this.globalTimer).append(",");
+        sb.append("\"hearts\": ").append(this.user.getHealth()).append(",");
+        sb.append("\"semester\": ").append(this.user.getSemester()).append(",");
+        sb.append("\"stars\": ").append(this.user.getSuccess());
+        return sb.append("}").toString();
+    }
+
+    public void eat() {
+        this.addHealth(1.0D);
     }
 }

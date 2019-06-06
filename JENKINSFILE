@@ -1,0 +1,44 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+    stages {
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up, removing previous builds'
+                sh 'rm -fr ./build/*'
+                echo 'Cleanup done'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'sh gradlew assemble --no-daemon'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing... (NO-OP)'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Success, now moving to web server'
+                echo 'Shutting down the current server'
+                sh '/opt/tomcat/bin/shutdown.sh'
+
+                echo 'Deleting the existing wars (if any) from the server'
+                sh 'rm -f /opt/tomcat/webapps/*.war'
+
+                echo 'Moving the war(s) to the server'
+                sh 'chmod 777 ./build/libs/*.war'
+                sh 'mv -f ./build/libs/*.war /opt/tomcat/webapps/'
+
+                echo 'Start the server again'
+                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                    sh '/opt/tomcat/bin/startup.sh'
+                }
+            }
+        }
+    }
+}

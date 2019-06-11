@@ -8,7 +8,7 @@ body {
     position: absolute;
     width: 100%;
     height: 10%;
-    background-color: darkred;
+    background: url("Studigotchi-Banner.png") top left;
 }
 
 .content {

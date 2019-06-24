@@ -1,5 +1,6 @@
 package studigochi.test.servlets;
 
+import studigochi.test.student.Status;
 import studigochi.test.student.Student;
 
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 public final class SleepServlet extends AbstractUserServlet {
     @Override
     void handleStudent(Student student) {
-        student.sleep();
+        if (student.getStatus() == Status.SLEEP)
+            student.just_be();
+        else
+            student.sleep();
     }
 }

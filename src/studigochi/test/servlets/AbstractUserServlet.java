@@ -1,6 +1,5 @@
 package studigochi.test.servlets;
 
-import studigochi.test.models.UserModel;
 import studigochi.test.student.Student;
 
 import javax.servlet.ServletException;
@@ -14,12 +13,12 @@ import java.io.PrintWriter;
 abstract class AbstractUserServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final PrintWriter writer = resp.getWriter();
 
         final HttpSession session = req.getSession(true);
         if (session.getAttribute("student") == null) {
-            session.setAttribute("student", new Student(new UserModel("Studi", "", 1, 1, 5.0d, 0.0d)));
+            session.setAttribute("student", new Student());
         }
 
         final Student student = (Student) session.getAttribute("student");

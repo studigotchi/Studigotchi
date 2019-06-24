@@ -1,6 +1,6 @@
 package studigochi.test.student;
 
-import studigochi.test.models.UserModel;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 import java.util.Timer;
@@ -11,20 +11,35 @@ public class Student {
 
     private static final Random random = new Random();
 
-    private UserModel user;
     private Timer timer;
     private Status status;
     private long globalTimer;
 
-    public Student(UserModel user) {
+    @NotNull
+    private String userName;
+    @NotNull
+    private String PW_Hash;
+    private int userId;
+    private int semester;
+    private double health;
+    private double success;
 
-        this.user = user;
+    public Student() {
+        this("studi", "", 10.0D, 0.0D);
+    }
+
+    public Student(@NotNull String userName, @NotNull String PW_Hash, double health, double success) {
+        this.userName = userName;
+        this.PW_Hash = PW_Hash;
+        this.health = health;
+        this.success = success;
+        this.semester = 1;
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-
                 doSomething();
             }
         }, 10, 1000);
@@ -33,23 +48,19 @@ public class Student {
     }
 
     public double getHealth() {
-
-        return user.getHealth();
+        return health;
     }
 
     public void setHealth(double health) {
-
-        user.setHealth(health);
+        this.health = health;
     }
 
     public double getSuccess() {
-
-        return user.getSuccess();
+        return this.success;
     }
 
     public void setSuccess(double success) {
-
-        user.setSuccess(success);
+        this.success = success;
     }
 
     private void doSomething() {
@@ -88,35 +99,40 @@ public class Student {
 
 
     public void learn() {
-
+        this.status = Status.LEARN;
         addHealth(-0.1);
         addSuccess(random.nextDouble() * 0.9 + 0.1);
     }
 
 
     public void sleep() {
-
+        this.status = Status.SLEEP;
         addHealth(0.2);
     }
 
 
     public void just_be() {
-
+        this.status = Status.JUST_BE;
         addHealth(-0.2);
     }
 
     public String toJSONString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"name\": \"").append(this.user.getUserName()).append("\",");
+        sb.append("\"name\": \"").append(this.userName).append("\",");
         sb.append("\"status\": \"").append(this.status).append("\",");
         sb.append("\"time\": ").append(this.globalTimer).append(",");
-        sb.append("\"hearts\": ").append(this.user.getHealth()).append(",");
-        sb.append("\"semester\": ").append(this.user.getSemester()).append(",");
-        sb.append("\"stars\": ").append(this.user.getSuccess());
+        sb.append("\"hearts\": ").append(this.getHealth()).append(",");
+        sb.append("\"semester\": ").append(this.semester).append(",");
+        sb.append("\"stars\": ").append(this.getSuccess());
         return sb.append("}").toString();
     }
 
     public void eat() {
+        this.status = Status.JUST_BE;
         this.addHealth(1.0D);
+    }
+
+    public Status getStatus() {
+        return status;
     }
 }

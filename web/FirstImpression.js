@@ -13,7 +13,7 @@ function clickEat() {
     sendRequest("eat");
     window.setTimeout(function () {
         isEating = false;
-    }, 5000);
+    }, 800);
 }
 
 function clickLearn() {
@@ -22,6 +22,50 @@ function clickLearn() {
 
 function clickSleep() {
     sendRequest("sleep");
+}
+
+
+function setBilder(jsonObject) {
+    let hearts = jsonObject.hearts;
+    let stars = jsonObject.stars;
+
+    let index = 1;
+    while (stars > 1) {
+        jQuery("#stars" + index).attr("src", "star.png");
+        stars -= 1;
+        index += 1;
+    }
+
+    if (stars > 0.5) {
+        jQuery("#stars" + index).attr("src", "star_half.png");
+        index += 1;
+    }
+
+    while(index <= 5) {
+        jQuery("#stars" + index).attr("src", "star_empty.png");
+        index += 1;
+    }
+
+    index = 1;
+    if(hearts > 0 && hearts < 0.5) {
+        hearts += 0.5;
+    }
+
+    while (hearts > 1) {
+        jQuery("#hearts" + index).attr("src", "heart.png");
+        hearts -= 1;
+        index += 1;
+    }
+
+    if (hearts > 0.5) {
+        jQuery("#hearts" + index).attr("src", "heart_half.png");
+        index += 1;
+    }
+
+    while(index <= 5) {
+        jQuery("#hearts" + index).attr("src", "heart_empty.png");
+        index += 1;
+    }
 }
 
 function sendRequest(urlEnd) {
@@ -39,6 +83,8 @@ function sendRequest(urlEnd) {
             let learnButton = jQuery(".button-learn");
             let sleepButton = jQuery(".button-sleep");
             let eatButton = jQuery(".button-eat");
+
+            setBilder(responseObject);
 
             if (isEating) {
                 image.attr("src", "Eat.gif");

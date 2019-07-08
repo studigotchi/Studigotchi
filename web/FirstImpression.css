@@ -114,3 +114,17 @@ table td {
     overflow: hidden;
     text-align: center;
 }
+
+.bar {
+    position: relative;
+    top: 0;
+}
+
+.bar img {
+    height: 25px;
+    margin: 0 4px 0 0;
+}
+
+.overlay {
+    top: -29px;
+}

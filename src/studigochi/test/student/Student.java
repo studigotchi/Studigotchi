@@ -10,10 +10,14 @@ import java.util.TimerTask;
 public class Student {
 
     private static final Random random = new Random();
+    private static final int TIME_PER_SEMESTER = 3600;
+    private static final double MAX_SUCCESS = 5.0D;
+    private static final double MAX_LIFE = 5.0D;
 
     private Timer timer;
     private Status status;
-    private long globalTimer;
+    private long semesterTimer;
+    private int totalSemesters;
 
     @NotNull
     private String userName;
@@ -34,6 +38,7 @@ public class Student {
         this.health = health;
         this.success = success;
         this.semester = 1;
+        this.totalSemesters = 0;
 
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -44,7 +49,7 @@ public class Student {
             }
         }, 10, 1000);
         status = Status.JUST_BE;
-        globalTimer = 0L;
+        semesterTimer = 0L;
     }
 
     public double getHealth() {
@@ -52,7 +57,7 @@ public class Student {
     }
 
     public void setHealth(double health) {
-        this.health = health;
+        this.health = Math.min(health, MAX_LIFE);
     }
 
     public double getSuccess() {
@@ -60,26 +65,43 @@ public class Student {
     }
 
     public void setSuccess(double success) {
-        this.success = success;
+        this.success = Math.min(success, MAX_SUCCESS);
     }
 
     private void doSomething() {
 
-        switch (status) {
-            case LEARN:
-                learn();
-                break;
+        if(semesterTimer == 0L) {
+            endOfSemester();
+        } else {
+            switch (status) {
+                case LEARN:
+                    learn();
+                    break;
 
-            case SLEEP:
-                sleep();
-                break;
+                case SLEEP:
+                    sleep();
+                    break;
 
-            case JUST_BE:
-                just_be();
-                break;
+                case JUST_BE:
+                    just_be();
+                    break;
+            }
         }
 
-        globalTimer++;
+        semesterTimer--;
+    }
+
+    private void endOfSemester() {
+        totalSemesters++;
+
+        if(success >= 5.0D) {
+            semester++;
+        } else {
+            health -= random.nextDouble() * 3.0D;
+        }
+
+        success = 0.0D;
+        semesterTimer = TIME_PER_SEMESTER;
     }
 
 
@@ -92,39 +114,48 @@ public class Student {
 
 
     private void addSuccess(double amount) {
-
         amount += getSuccess();
         setSuccess(amount);
     }
 
 
     public void learn() {
+        if(this.health == 0.0D) {
+            this.status = Status.JUST_BE;
+            return;
+        }
+
         this.status = Status.LEARN;
         addHealth(-0.1);
-        addSuccess(random.nextDouble() * 0.9 + 0.1);
+        addSuccess(random.nextDouble() * 0.10);
     }
 
 
     public void sleep() {
         this.status = Status.SLEEP;
-        addHealth(0.2);
+        addHealth(0.02);
     }
 
 
     public void just_be() {
         this.status = Status.JUST_BE;
-        addHealth(-0.2);
+        addHealth(-0.02D);
     }
 
     public String toJSONString() {
         final StringBuilder sb = new StringBuilder("{");
         sb.append("\"name\": \"").append(this.userName).append("\",");
         sb.append("\"status\": \"").append(this.status).append("\",");
-        sb.append("\"time\": ").append(this.globalTimer).append(",");
+        sb.append("\"time\": ").append(getRemainingSemesterTime()).append(",");
         sb.append("\"hearts\": ").append(this.getHealth()).append(",");
         sb.append("\"semester\": ").append(this.semester).append(",");
+        sb.append("\"totalSemesters\": ").append(this.totalSemesters).append(",");
         sb.append("\"stars\": ").append(this.getSuccess());
         return sb.append("}").toString();
+    }
+
+    public long getRemainingSemesterTime() {
+        return semesterTimer;
     }
 
     public void eat() {

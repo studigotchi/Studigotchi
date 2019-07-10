@@ -30,13 +30,13 @@ function setBilder(jsonObject) {
     let stars = jsonObject.stars;
 
     let index = 1;
-    while (stars > 1) {
+    while (stars >= 1) {
         jQuery("#stars" + index).attr("src", "star.png");
         stars -= 1;
         index += 1;
     }
 
-    if (stars > 0.5) {
+    if (stars >= 0.5) {
         jQuery("#stars" + index).attr("src", "star_half.png");
         index += 1;
     }
@@ -51,13 +51,13 @@ function setBilder(jsonObject) {
         hearts += 0.5;
     }
 
-    while (hearts > 1) {
+    while (hearts >= 1) {
         jQuery("#hearts" + index).attr("src", "heart.png");
         hearts -= 1;
         index += 1;
     }
 
-    if (hearts > 0.5) {
+    if (hearts >= 0.5) {
         jQuery("#hearts" + index).attr("src", "heart_half.png");
         index += 1;
     }

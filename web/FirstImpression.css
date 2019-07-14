@@ -120,9 +120,14 @@ table td {
     top: 0;
 }
 
-.bar img {
+.bar img[id^="hearts"] {
     height: 25px;
     margin: 0 4px 0 0;
+}
+
+.bar img[id^="stars"] {
+    height: 25px;
+    margin: 0 7px 0 0;
 }
 
 .overlay {

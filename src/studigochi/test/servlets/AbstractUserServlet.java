@@ -13,12 +13,14 @@ import java.io.PrintWriter;
 abstract class AbstractUserServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         final PrintWriter writer = resp.getWriter();
 
         final HttpSession session = req.getSession(true);
         if (session.getAttribute("student") == null) {
-            session.setAttribute("student", new Student());
+            //session.setAttribute("student", new Student());
+            req.getRequestDispatcher("/Login_Register.jsp").forward(req, resp);
+            return;
         }
 
         final Student student = (Student) session.getAttribute("student");

@@ -10,7 +10,7 @@ import java.util.TimerTask;
 public class Student {
 
     private static final Random random = new Random();
-    private static final int TIME_PER_SEMESTER = 3600;
+    public static final int TIME_PER_SEMESTER = 3600;
     private static final double MAX_SUCCESS = 5.0D;
     private static final double MAX_LIFE = 5.0D;
 
@@ -21,35 +21,42 @@ public class Student {
 
     @NotNull
     private String userName;
-    @NotNull
-    private String PW_Hash;
     private int userId;
     private int semester;
     private double health;
-    private double success;
+    private volatile double success;
 
     public Student() {
-        this("studi", "", 10.0D, 0.0D);
+        this("studi", 10.0D, 0.0D, 1, 0, TIME_PER_SEMESTER);
     }
 
-    public Student(@NotNull String userName, @NotNull String PW_Hash, double health, double success) {
+    public Student(@NotNull String userName, double health, double success, int semester, int userId, long semesterTimer) {
         this.userName = userName;
-        this.PW_Hash = PW_Hash;
         this.health = health;
         this.success = success;
-        this.semester = 1;
-        this.totalSemesters = 0;
+        this.semester = semester;
+        this.totalSemesters = 1;
+        this.userId = userId;
 
         timer = new Timer();
+        status = Status.JUST_BE;
+        this.semesterTimer = semesterTimer;
+    }
+
+    public void startTimer() {
+        timer.purge();
         timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
+                System.out.printf("Timer: s: %1.4f, h: %1.4f%n", success, health);
                 doSomething();
             }
-        }, 10, 1000);
-        status = Status.JUST_BE;
-        semesterTimer = 0L;
+        }, 1000, 1000);
+    }
+
+    public void stopTimer() {
+        timer.cancel();
     }
 
     public double getHealth() {
@@ -70,7 +77,12 @@ public class Student {
 
     private void doSomething() {
 
-        if(semesterTimer == 0L) {
+        if (health == 0.0D) {
+            //Set dead
+            System.out.println("I am dead");
+        }
+
+        if (semesterTimer == 0L) {
             endOfSemester();
         } else {
             switch (status) {
@@ -94,7 +106,7 @@ public class Student {
     private void endOfSemester() {
         totalSemesters++;
 
-        if(success >= 5.0D) {
+        if (success >= 5.0D) {
             semester++;
         } else {
             health -= random.nextDouble() * 3.0D;
@@ -120,7 +132,7 @@ public class Student {
 
 
     public void learn() {
-        if(this.health == 0.0D) {
+        if (this.health == 0.0D) {
             this.status = Status.JUST_BE;
             return;
         }
@@ -165,5 +177,21 @@ public class Student {
 
     public Status getStatus() {
         return status;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getTotalSemesters() {
+        return totalSemesters;
     }
 }

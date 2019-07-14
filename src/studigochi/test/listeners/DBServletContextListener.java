@@ -1,4 +1,4 @@
-package studigochi.test;
+package studigochi.test.listeners;
 
 import org.jetbrains.annotations.Contract;
 import org.sqlite.JDBC;
@@ -23,7 +23,8 @@ public class DBServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        final String connectionString = JDBC.PREFIX + sce.getServletContext().getRealPath(databaseName);
+        //final String connectionString = JDBC.PREFIX + sce.getServletContext().getRealPath(databaseName);
+        final String connectionString = JDBC.PREFIX + "C:\\Users\\Timo Klenk\\Documents\\Projects\\SourceTree\\Studium\\TomCat\\Studigochi_First\\web\\WEB-INF\\studigochi.db";
 
         System.out.printf("%n%n%n%nContext Initialized%n%n%n%n");
 
@@ -41,6 +42,7 @@ public class DBServletContextListener implements ServletContextListener {
         if (connection != null) {
             try {
                 connection.close();
+                connection = null;
             } catch (SQLException e) {
                 e.printStackTrace();
             }

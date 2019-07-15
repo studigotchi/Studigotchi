@@ -21,7 +21,7 @@ sourceCompatibility = 1.8
 project.webAppDirName = "web"
 
 //Our project version (used in the archive name)
-version = '1.0'
+version = '1.5'
 
 
 repositories {

@@ -13,11 +13,10 @@ public class LoginFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        if(!(request instanceof HttpServletRequest)) {
+        if (!(request instanceof HttpServletRequest)) {
             chain.doFilter(request, resp);
             return;
         }
-
 
 
         final HttpServletRequest req = (HttpServletRequest) request;
@@ -35,4 +34,9 @@ public class LoginFilter implements Filter {
         }
     }
 
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
 }

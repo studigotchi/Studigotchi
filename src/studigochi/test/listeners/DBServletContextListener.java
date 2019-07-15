@@ -23,10 +23,10 @@ public class DBServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        //final String connectionString = JDBC.PREFIX + sce.getServletContext().getRealPath(databaseName);
-        final String connectionString = JDBC.PREFIX + "C:\\Users\\Timo Klenk\\Documents\\Projects\\SourceTree\\Studium\\TomCat\\Studigochi_First\\web\\WEB-INF\\studigochi.db";
+        final String connectionString = JDBC.PREFIX + sce.getServletContext().getRealPath(databaseName);
+        //final String connectionString = JDBC.PREFIX + "C:\\Users\\Timo Klenk\\Documents\\Projects\\SourceTree\\Studium\\TomCat\\Studigochi_First\\web\\WEB-INF\\studigochi.db";
 
-        System.out.printf("%n%n%n%nContext Initialized%n%n%n%n");
+        //System.out.printf("%n%n%n%nContext Initialized%n%n%n%n");
 
         try {
             connection = JDBC.createConnection(connectionString, new Properties());
@@ -37,7 +37,7 @@ public class DBServletContextListener implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.printf("%n%n%n%nContext Destroyed%n%n%n%n");
+        //System.out.printf("%n%n%n%nContext Destroyed%n%n%n%n");
 
         if (connection != null) {
             try {

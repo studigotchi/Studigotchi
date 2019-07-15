@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             student.startTimer();
             req.getSession(true).setAttribute("student", student);
-            resp.sendRedirect(req.getContextPath() + "/FirstImpression.html");
+            resp.sendRedirect(req.getContextPath() + "/Game");
         }
     }
 

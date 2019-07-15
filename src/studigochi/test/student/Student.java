@@ -27,7 +27,8 @@ public class Student {
     private volatile double success;
 
     public Student() {
-        this("studi", 10.0D, 0.0D, 1, 0, TIME_PER_SEMESTER);
+        //this("studi", 10.0D, 0.0D, 1, 0, TIME_PER_SEMESTER);
+        throw new IllegalStateException("I should never be called!");
     }
 
     public Student(@NotNull String userName, double health, double success, int semester, int userId, long semesterTimer) {
@@ -49,7 +50,6 @@ public class Student {
 
             @Override
             public void run() {
-                System.out.printf("Timer: s: %1.4f, h: %1.4f%n", success, health);
                 doSomething();
             }
         }, 1000, 1000);
@@ -78,8 +78,8 @@ public class Student {
     private void doSomething() {
 
         if (health == 0.0D) {
-            //Set dead
-            System.out.println("I am dead");
+            //TODO DEAD
+            //System.out.println("I am dead");
         }
 
         if (semesterTimer == 0L) {

@@ -25,7 +25,7 @@ p{
     position: absolute;
     width: 100%;
     height: 20%;
-    background: url("Studigotchi-Banner.png") top left;
+    background: url("assets/Studigotchi-Banner.png") top left;
 }
 
 .content {
@@ -40,7 +40,7 @@ p{
     top: 0;
     left: 0;
     height: 100%;
-    background: url("mittel-pixel.jpg") top left;
+    background: url("assets/mittel-pixel.jpg") top left;
     width: 20%;
     overflow: auto;
 }
@@ -61,7 +61,7 @@ p{
     left: 80%;
     width: 20%;
     height: 100%;
-    background: url("mittel-pixel.jpg") top left;
+    background: url("assets/mittel-pixel.jpg") top left;
     font-size: 18px;
 }
 
@@ -78,7 +78,7 @@ p{
     height: 70%;*/
     width: 100%;
     height: 80%;
-    background: url("pixel-background.jpg") top left;
+    background: url("assets/pixel-background.jpg") top left;
     background-size: 780px;
 }
 

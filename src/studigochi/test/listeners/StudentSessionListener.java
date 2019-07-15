@@ -11,6 +11,12 @@ import javax.servlet.http.HttpSessionListener;
 public class StudentSessionListener implements HttpSessionListener {
 
     @Override
+    public void sessionCreated(HttpSessionEvent se) {
+        //Max 100s inactive before removing the session
+        se.getSession().setMaxInactiveInterval(100);
+    }
+
+    @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         final Student student = (Student) se.getSession().getAttribute("student");
         if (student != null)

@@ -12,12 +12,11 @@ import java.sql.SQLException;
 public class DataBaseTools {
 
     public static void saveStudent(Student student) {
-        if(student == null)
+        if (student == null)
             return;
 
         final Connection connection = DBServletContextListener.getConnection();
-        if(connection == null)
-            //TODO log?
+        if (connection == null)
             return;
 
         try {
@@ -32,8 +31,6 @@ public class DataBaseTools {
 
 
             updateStatement.execute();
-
-            System.out.println("Something");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +69,7 @@ public class DataBaseTools {
 
             preparedStatement.execute();
             final ResultSet resultSet = preparedStatement.getResultSet();
-            if(!resultSet.next() || resultSet.getInt(1) != 0)
+            if (!resultSet.next() || resultSet.getInt(1) != 0)
                 return null;
 
             final Student student = new Student(userName, 5.0D, 0.0D, 1, -1, Student.TIME_PER_SEMESTER);

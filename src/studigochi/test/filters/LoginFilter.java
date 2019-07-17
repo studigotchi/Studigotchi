@@ -21,14 +21,14 @@ public class LoginFilter implements Filter {
 
         final HttpServletRequest req = (HttpServletRequest) request;
 
-        if (req.getRequestURI().endsWith("user/login")) {
+        if (req.getRequestURI().endsWith("/login") || req.getRequestURI().endsWith(".css") || req.getRequestURI().endsWith(".png")) {
             chain.doFilter(req, resp);
             return;
         }
 
         final HttpSession session = req.getSession(true);
         if (session.getAttribute("student") == null) {
-            ((HttpServletResponse) resp).sendRedirect(req.getContextPath() + "/user/login");
+            ((HttpServletResponse) resp).sendRedirect(req.getContextPath() + "/login");
         } else {
             chain.doFilter(request, resp);
         }

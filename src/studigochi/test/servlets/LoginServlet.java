@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/user/login", name = "LoginServlet", description = "Used for login and Registration, accepts POSTs")
+@WebServlet(value = "/login", name = "LoginServlet", description = "Used for login and Registration, accepts POSTs")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

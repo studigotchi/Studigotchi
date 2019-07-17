@@ -14,7 +14,8 @@
     <script rel="script" src="Game.js"></script>
     <script rel="script">
         function firstInput() {
-            handleResult(${student.toJSONString()})
+            currentSemester = ${student.semester};
+            handleResult(${student.toJSONString()});
             onLoaded();
         }
     </script>
@@ -28,7 +29,8 @@
     <div class="pane-left">
         <h1>Studigotchi</h1>
         <h2>Anleitung</h2>
-        <p>Ziel: Bleibe am Leben und absolviere dein Studium<br/>
+        <p id="instructions">
+            Ziel: Bleibe am Leben und absolviere dein Studium<br/>
         Um das zu schaffen, musst du viel lernen, aber nat&uuml;rlich musst du auch essen und schlafen.
         Finde die richtige Balance, um bis zur n&auml;chsten Klausur vorbereitet zu sein.
         Pro Semester musst du f&uuml;nf Sterne aufbauen, um die Klausur zu bestehen.<br/>
@@ -71,6 +73,7 @@
         </div>
     </div>
     <div class="pane-right" >
+        <h2>Hallo, ${student.userName}!</h2>
         <p> <b>Semester:</b> <span id="semester_id">1</span></p>
         <div class="bar">
             <img id="hearts1" src="assets/heart.png"><img id="hearts2" src="assets/heart.png"><img id="hearts3" src="assets/heart.png"><img id="hearts4" src="assets/heart.png"><img id="hearts5" src="assets/heart.png">

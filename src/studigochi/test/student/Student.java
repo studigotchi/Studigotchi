@@ -13,6 +13,8 @@ public class Student {
     public static final int TIME_PER_SEMESTER = 3600;
     private static final double MAX_SUCCESS = 5.0D;
     private static final double MAX_LIFE = 5.0D;
+    private static final int MAX_TOTAL_SEMESTER = 10;
+    private static final int SEMESTERS_TO_WIN = 6;
 
     private Timer timer;
     private Status status;
@@ -31,12 +33,12 @@ public class Student {
         throw new IllegalStateException("I should never be called!");
     }
 
-    public Student(@NotNull String userName, double health, double success, int semester, int userId, long semesterTimer) {
+    public Student(@NotNull String userName, double health, double success, int semester, int userId, long semesterTimer, int totalSemesters) {
         this.userName = userName;
         this.health = health;
         this.success = success;
         this.semester = semester;
-        this.totalSemesters = 1;
+        this.totalSemesters = totalSemesters;
         this.userId = userId;
 
         timer = new Timer();
@@ -78,14 +80,23 @@ public class Student {
     private void doSomething() {
 
         if (health == 0.0D) {
-            //TODO DEAD
-            //System.out.println("I am dead");
+            setStatus(Status.DEAD);
+            return;
+        }
+
+        if(totalSemesters > MAX_TOTAL_SEMESTER) {
+            setStatus(Status.DEAD_HANGING);
+            return;
         }
 
         if (semesterTimer == 0L) {
             endOfSemester();
         } else {
             switch (status) {
+                case WON:
+                case DEAD:
+                case DEAD_HANGING:
+                    return;
                 case LEARN:
                     learn();
                     break;
@@ -108,6 +119,12 @@ public class Student {
 
         if (success >= 5.0D) {
             semester++;
+
+            if(semester > SEMESTERS_TO_WIN) {
+                setStatus(Status.WON);
+                return;
+            }
+
         } else {
             health -= random.nextDouble() * 3.0D;
         }
@@ -193,5 +210,9 @@ public class Student {
 
     public int getTotalSemesters() {
         return totalSemesters;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

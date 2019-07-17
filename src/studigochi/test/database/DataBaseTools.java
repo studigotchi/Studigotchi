@@ -52,7 +52,7 @@ public class DataBaseTools {
                 return null;
             }
 
-            final Student student = new Student(userName, resultSet.getDouble("health"), resultSet.getDouble("success"), resultSet.getInt("semester"), resultSet.getInt("userID"), resultSet.getLong("semesterTimer"));
+            final Student student = new Student(userName, resultSet.getDouble("health"), resultSet.getDouble("success"), resultSet.getInt("semester"), resultSet.getInt("userID"), resultSet.getLong("semesterTimer"), resultSet.getInt("totalSemesters"));
             student.setStatus(Status.values()[resultSet.getInt("Status")]);
             return student;
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class DataBaseTools {
             if (!resultSet.next() || resultSet.getInt(1) != 0)
                 return null;
 
-            final Student student = new Student(userName, 5.0D, 0.0D, 1, -1, Student.TIME_PER_SEMESTER);
+            final Student student = new Student(userName, 5.0D, 0.0D, 1, -1, Student.TIME_PER_SEMESTER, 1);
 
             final PreparedStatement createStatement = connection.prepareStatement("INSERT INTO Users (UserName, PW_Hash, Health, Success, Semester) VALUES (?,?,?,?,?)");
             createStatement.setString(1, userName);

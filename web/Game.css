@@ -4,20 +4,20 @@ body {
     padding: 0;
 }
 
-h1{
+h1 {
     margin-left: 0.5em;
-    margin-top: 0em;
+    margin-top: 10px;
 }
 
-h2{
-    margin-left: 0.5em;
-}
-
-a{
+h2 {
     margin-left: 0.5em;
 }
 
-p{
+a {
+    margin-left: 0.5em;
+}
+
+p {
     margin-left: 0.5em;
 }
 
@@ -118,6 +118,7 @@ table td {
 .bar {
     position: relative;
     top: 0;
+    padding-left: 10px;
 }
 
 .bar img[id^="hearts"] {
@@ -132,4 +133,8 @@ table td {
 
 .overlay {
     top: -29px;
+}
+
+#instructions {
+    margin-left: 10px;
 }

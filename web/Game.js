@@ -1,10 +1,13 @@
 let isEating = false;
+let currentStatus;
+let writingExam = false;
+let currentSemester;
 
 function onLoaded() {
     window.setInterval(function () {
         sendRequest("data");
     }, 1000);
-};
+}
 
 
 function clickEat() {
@@ -13,7 +16,7 @@ function clickEat() {
     sendRequest("eat");
     window.setTimeout(function () {
         isEating = false;
-    }, 800);
+    }, 1700);
 }
 
 function clickLearn() {
@@ -41,13 +44,13 @@ function setBilder(jsonObject) {
         index += 1;
     }
 
-    while(index <= 5) {
+    while (index <= 5) {
         jQuery("#stars" + index).attr("src", "assets/star_empty.png");
         index += 1;
     }
 
     index = 1;
-    if(hearts > 0 && hearts < 0.5) {
+    if (hearts > 0 && hearts < 0.5) {
         hearts += 0.5;
     }
 
@@ -62,7 +65,7 @@ function setBilder(jsonObject) {
         index += 1;
     }
 
-    while(index <= 5) {
+    while (index <= 5) {
         jQuery("#hearts" + index).attr("src", "assets/heart_empty.png");
         index += 1;
     }
@@ -89,34 +92,68 @@ function handleResult(responseObject) {
     jQuery("#semester_id").text(responseObject.semester || "NOT ENROLLED");
     jQuery("#time_id").text(responseObject.time || "OVERDUE");
 
-    let status = responseObject.status || "JUST_BE";
+    if(+currentSemester !== +responseObject.semester) {
+        writingExam = true;
+        window.setTimeout(function () {
+            return writingExam = false;
+        }, 1700);
+        currentSemester = +responseObject.semester;
+    }
+
+    let foundStatus = isEating ? "EATING" : responseObject.status || "JUST_BE";
+    if (writingExam) {
+        foundStatus = "EXAM";
+    }
+
     let image = jQuery("#student_bild");
     let learnButton = jQuery(".button-learn");
     let sleepButton = jQuery(".button-sleep");
     let eatButton = jQuery(".button-eat");
 
     setBilder(responseObject);
+    if (currentStatus !== foundStatus) {
+        if (foundStatus === "EATING") {
+            image.attr("src", "assets/Eat.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "JUST_BE") {
+            image.attr("src", "assets/Idle-schwarzweiss.gif");
+            learnButton.removeAttr("disabled");
+            sleepButton.removeAttr("disabled");
+            eatButton.removeAttr("disabled");
+        } else if (foundStatus === "LEARN") {
+            image.attr("src", "assets/Learn-schwarzweiss.gif");
+            learnButton.removeAttr("disabled");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "SLEEP") {
+            image.attr("src", "assets/Sleeping-schwarzweiss.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.removeAttr("disabled");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "DEAD") {
+            image.attr("src", "assets/Dead-Desk.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "DEAD_HANGING") {
+            image.attr("src", "assets/Dead-Hanging.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "WON") {
+            image.attr("src", "assets/Won.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        } else if (foundStatus === "EXAM") {
+            image.attr("src", "assets/Exam.gif");
+            learnButton.attr("disabled", "");
+            sleepButton.attr("disabled", "");
+            eatButton.attr("disabled", "");
+        }
 
-    if (isEating) {
-        image.attr("src", "assets/Eat.gif");
-        learnButton.attr("disabled", "");
-        sleepButton.attr("disabled", "");
-        eatButton.attr("disabled", "");
-    } else if (status === "JUST_BE") {
-        image.attr("src", "assets/Idle-schwarzweiss.gif");
-        learnButton.removeAttr("disabled");
-        sleepButton.removeAttr("disabled");
-        eatButton.removeAttr("disabled");
-    } else if (status === "LEARN") {
-        image.attr("src", "assets/Learn-schwarzweiss.gif");
-        learnButton.removeAttr("disabled");
-        sleepButton.attr("disabled", "");
-        eatButton.attr("disabled", "");
-    } else if (status === "SLEEP") {
-        image.attr("src", "assets/Sleeping-schwarzweiss.gif");
-
-        learnButton.attr("disabled", "");
-        sleepButton.removeAttr("disabled");
-        eatButton.attr("disabled", "");
+        currentStatus = foundStatus;
     }
 }

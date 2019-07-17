@@ -1,0 +1,24 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+}
+
+.content {
+    position: absolute;
+    top: 40%;
+    height: 60%;
+    width: 100%;
+    text-align: -webkit-center;
+}
+
+#banner {
+    height: 100%;
+    width: 100%;
+}

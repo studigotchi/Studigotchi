@@ -4,5 +4,7 @@ public enum Status {
     JUST_BE,
     LEARN,
     SLEEP,
-    DEAD;
+    DEAD,
+    DEAD_HANGING,
+    WON;
 }

@@ -13,10 +13,13 @@ body {
 .content {
     position: absolute;
     top: 40%;
+    left: 40%;
     height: 60%;
-    width: 100%;
-    text-align: -webkit-center;
+    
+    width: 60%;
+    /*text-align: -webkit-center;*/
 }
+
 
 #banner {
     height: 100%;

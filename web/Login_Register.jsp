@@ -11,7 +11,7 @@
     <img id="banner" src="assets/Studigotchi-Banner.png" alt="Hier sollte ein Banner stehen!" draggable="false"/>
 </div>
 <div class="content">
-    <form action="login" method="post">
+    <form id="form" action="login" method="post">
         <table>
             <tbody>
             <tr>

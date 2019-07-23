@@ -113,7 +113,7 @@ function handleResult(responseObject) {
     setBilder(responseObject);
     if (currentStatus !== foundStatus) {
         if (foundStatus === "EATING") {
-            image.attr("src", "assets/Eat.gif");
+            image.attr("src", "assets/Eat-schwarzweiss.gif");
             learnButton.attr("disabled", "");
             sleepButton.attr("disabled", "");
             eatButton.attr("disabled", "");
@@ -133,22 +133,22 @@ function handleResult(responseObject) {
             sleepButton.removeAttr("disabled");
             eatButton.attr("disabled", "");
         } else if (foundStatus === "DEAD") {
-            image.attr("src", "assets/Dead-Desk.gif");
+            image.attr("src", "assets/Dead-Desk-schwarzweiss.gif");
             learnButton.attr("disabled", "");
             sleepButton.attr("disabled", "");
             eatButton.attr("disabled", "");
         } else if (foundStatus === "DEAD_HANGING") {
-            image.attr("src", "assets/Dead-Hanging.gif");
+            image.attr("src", "assets/Dead-Hanging-schwarzweiss.gif");
             learnButton.attr("disabled", "");
             sleepButton.attr("disabled", "");
             eatButton.attr("disabled", "");
         } else if (foundStatus === "WON") {
-            image.attr("src", "assets/Won.gif");
+            image.attr("src", "assets/Won-schwarzweiss.gif");
             learnButton.attr("disabled", "");
             sleepButton.attr("disabled", "");
             eatButton.attr("disabled", "");
         } else if (foundStatus === "EXAM") {
-            image.attr("src", "assets/Exam.gif");
+            image.attr("src", "assets/Exam-schwarzweiss.gif");
             learnButton.attr("disabled", "");
             sleepButton.attr("disabled", "");
             eatButton.attr("disabled", "");

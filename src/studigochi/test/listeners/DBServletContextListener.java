@@ -10,23 +10,42 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * {@inheritDoc}<br/>
+ *     Handles initializing and closing the Database connection on servletContext start/destruction
+ */
 @WebListener("Listener to initialize a sqlite database")
 public class DBServletContextListener implements ServletContextListener {
 
+    /**
+     * We are using a file-based Database since the specifications given at the beginning forbade using local servers.<br/>
+     * Hence the DB file lies in the webinf folder
+     */
     private static final String databaseName = "WEB-INF/studigochi.db";
+
+    /**
+     * Holds the DB connection instance
+     */
     private static Connection connection;
 
+    /**
+     * @return An instance of the DB connection
+     */
     @Contract(pure = true)
     public static Connection getConnection() {
+        //TODO: Handle auto-closing of the connection after timeout
+        // -> If the connection is not used for too long then the Connection may auto-close
         return connection;
     }
 
+    /**
+     * {@inheritDoc}<br/>
+     *     Initializes the Database Connection
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        //Build the direct string on the file system
         final String connectionString = JDBC.PREFIX + sce.getServletContext().getRealPath(databaseName);
-        //final String connectionString = JDBC.PREFIX + "C:\\Users\\Timo Klenk\\Documents\\Projects\\SourceTree\\Studium\\TomCat\\Studigochi_First\\web\\WEB-INF\\studigochi.db";
-
-        //System.out.printf("%n%n%n%nContext Initialized%n%n%n%n");
 
         try {
             connection = JDBC.createConnection(connectionString, new Properties());
@@ -35,10 +54,14 @@ public class DBServletContextListener implements ServletContextListener {
         }
     }
 
+    /**
+     * {@inheritDoc}<br/>
+     *     Destroys the Database Connection
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        //System.out.printf("%n%n%n%nContext Destroyed%n%n%n%n");
 
+        //If connection not destroyed yet, destroy it
         if (connection != null) {
             try {
                 connection.close();

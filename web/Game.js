@@ -4,12 +4,15 @@ let writingExam = false;
 let currentSemester;
 
 function onLoaded() {
+    //As soon as the window is loaded we start querying the server for updates
     window.setInterval(function () {
         sendRequest("data");
     }, 1000);
 }
 
-
+/**
+ * Called when the user hits the eat button
+ */
 function clickEat() {
     isEating = true;
     jQuery(".button-eat").attr("disabled", "");
@@ -19,20 +22,30 @@ function clickEat() {
     }, 1700);
 }
 
+/**
+ * Called when the user clicks the learn button
+ */
 function clickLearn() {
     sendRequest("learn");
 }
 
+/**
+ * Called when the user clicks the sleep button
+ */
 function clickSleep() {
     sendRequest("sleep");
 }
 
-
+/**
+ * Sets the user's hearts and star icons
+ * @param{{"hearts":number, "stars": number}} jsonObject the response object
+ */
 function setBilder(jsonObject) {
     let hearts = jsonObject.hearts;
     let stars = jsonObject.stars;
 
     let index = 1;
+    //Draw the stars
     while (stars >= 1) {
         jQuery("#stars" + index).attr("src", "assets/star.png");
         stars -= 1;
@@ -50,6 +63,7 @@ function setBilder(jsonObject) {
     }
 
     index = 1;
+    //Draw the hearts
     if (hearts > 0 && hearts < 0.5) {
         hearts += 0.5;
     }
@@ -71,6 +85,10 @@ function setBilder(jsonObject) {
     }
 }
 
+/**
+ * Sends a request to the user servlets
+ * @param{string} urlEnd The servlet to send the request to (without the preceeding './user/')
+ */
 function sendRequest(urlEnd) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -84,14 +102,28 @@ function sendRequest(urlEnd) {
     request.send();
 }
 
-
+/**
+ * Handles the response from {@link sendRequest}
+ * @param{
+ *  {
+ *   "name": string,
+ *
+ *   "hearts": number,
+ *   "stars": number,
+ *   "semester": number,
+ *   "time": number,
+ *   "status": string,
+ *   "totalSemesters": number
+ *  }
+ * } responseObject The object (JSON-parsed) to handle
+ */
 function handleResult(responseObject) {
-    //let responseObject = JSON.parse(result);
     jQuery("#life_id").text(responseObject.hearts || "NO LIFE MAN");
     jQuery("#progress_id").text(responseObject.stars || "YOU'RE TOO BAD");
     jQuery("#semester_id").text(responseObject.semester || "NOT ENROLLED");
     jQuery("#time_id").text(responseObject.time || "OVERDUE");
 
+    //We don't have a special status for the exams, so we only show that on the client
     if(+currentSemester !== +responseObject.semester) {
         writingExam = true;
         window.setTimeout(function () {
@@ -100,6 +132,7 @@ function handleResult(responseObject) {
         currentSemester = +responseObject.semester;
     }
 
+    //We don't have a special status for eating, so we only show that on the client
     let foundStatus = isEating ? "EATING" : responseObject.status || "JUST_BE";
     if (writingExam) {
         foundStatus = "EXAM";
@@ -110,7 +143,10 @@ function handleResult(responseObject) {
     let sleepButton = jQuery(".button-sleep");
     let eatButton = jQuery(".button-eat");
 
+    //Update the star/heart icons
     setBilder(responseObject);
+
+    //Update the background image and enable/disable the respective buttons
     if (currentStatus !== foundStatus) {
         if (foundStatus === "EATING") {
             image.attr("src", "assets/Eat-schwarzweiss.gif");

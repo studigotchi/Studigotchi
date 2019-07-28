@@ -9,8 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class consists of static methods to handle saving and loading users from the DataBase.
+ */
 public class DataBaseTools {
 
+    /**
+     * Writes the given student to the database
+     * @param student The student to write to the DB
+     */
     public static void saveStudent(Student student) {
         if (student == null)
             return;
@@ -38,6 +45,12 @@ public class DataBaseTools {
     }
 
 
+    /**
+     * Attemtps to read the user from the database
+     * @param userName The user name to be used (see {@link Student#getUserName()}
+     * @param password The user's password (only used in connection to the Database, it's not stored in {@link Student}!)
+     * @return The {@link Student} that matches the given credentials, or {@code null}
+     */
     public static Student login(String userName, String password) {
         try {
             final Connection connection = DBServletContextListener.getConnection();
@@ -61,6 +74,13 @@ public class DataBaseTools {
         return null;
     }
 
+    /**
+     * Attempts to register a new {@link Student} to the database.<br/>
+     *     After registering it will also attempt to return the created user.
+     * @param userName The username to be created (see {@link Student#getUserName()}
+     * @param password The password for the new user
+     * @return The newly created user's login result (see {@link #login}) or {@code null} if any error occured or a user with such username already exists
+     */
     public static Student register(String userName, String password) {
         try {
             final Connection connection = DBServletContextListener.getConnection();
